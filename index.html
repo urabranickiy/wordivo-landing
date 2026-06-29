@@ -3,287 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordivo — Science-backed vocabulary practice for language teachers</title>
-    <meta name="description" content="A Telegram bot for language teachers. Add vocabulary after each lesson — Wordivo handles spaced repetition, exercises, and progress tracking.">
+    <title>Wordivo — Science-backed vocabulary that you actually remember</title>
+    <meta name="description" content="A Telegram bot that turns vocabulary into long-term memory with spaced repetition. For solo learners and the teachers who guide them.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <style>
-        :root {
-            --bg: #FBF9F5;
-            --bg2: #F5F2EC;
-            --surface: #FFFFFF;
-            --surface2: #F8F6F1;
-            --border: #E8E3D9;
-            --border-lit: #D4CDBF;
-            --text: #0F1729;
-            --text-dim: #475569;
-            --text-muted: #64748B;
-            --primary: #4F46E5;
-            --primary2: #6366F1;
-            --primary-dark: #3730A3;
-            --primary-glow: rgba(79,70,229,0.1);
-            --primary-glow2: rgba(79,70,229,0.18);
-            --accent: #F97316;
-            --accent-glow: rgba(249,115,22,0.1);
-            --green: #10B981;
-            --tg-blue: #229ED9;
-            --tg-blue-dark: #0088CC;
-        }
-        *{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;font-weight:400;font-size:17px}
-        ::selection{background:var(--primary);color:white}
-
-        /* SUBTLE STATIC BACKGROUND */
-        body::before{
-            content:'';
-            position:fixed;
-            inset:0;
-            background:
-                radial-gradient(ellipse 80% 60% at 15% 10%, rgba(79,70,229,0.05), transparent 60%),
-                radial-gradient(ellipse 70% 50% at 85% 90%, rgba(249,115,22,0.04), transparent 60%);
-            pointer-events:none;
-            z-index:0;
-        }
-        body::after{
-            content:'';
-            position:fixed;
-            inset:0;
-            background-image:
-                linear-gradient(rgba(15,23,41,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15,23,41,0.025) 1px, transparent 1px);
-            background-size: 56px 56px;
-            pointer-events:none;
-            z-index:0;
-            mask-image:radial-gradient(ellipse at center, black 30%, transparent 70%);
-            -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 70%);
-        }
-
-        /* ICONS */
-        .icon{width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:middle}
-        .icon-lg{width:22px;height:22px}
-        .icon-xl{width:24px;height:24px}
-
-        /* NAV */
-        nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;backdrop-filter:blur(20px) saturate(1.5);background:rgba(251,249,245,0.85);border-bottom:1px solid var(--border);transition:background .3s}
-        .nav-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .logo{font-size:1.45rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.8px}
-        .logo span{color:var(--primary)}
-        .nav-r{display:flex;gap:2.2rem;align-items:center}
-        .nav-r a{color:var(--text-dim);text-decoration:none;font-size:0.95rem;font-weight:500;transition:color .3s}
-        .nav-r a:hover{color:var(--text)}
-        .nav-cta{background:var(--primary)!important;color:white!important;padding:.6rem 1.3rem;border-radius:8px;font-weight:600!important;transition:all .3s!important;display:flex!important;align-items:center;gap:.4rem}
-        .nav-cta:hover{box-shadow:0 8px 24px var(--primary-glow2);transform:translateY(-1px);background:var(--primary-dark)!important}
-
-        /* HERO */
-        .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 4rem;max-width:1200px;margin:0 auto}
-        .hero-content{max-width:620px}
-        .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border);padding:.45rem 1rem .45rem .85rem;border-radius:100px;font-size:.85rem;color:var(--text-dim);margin-bottom:2rem;font-weight:500;background:var(--surface);letter-spacing:.2px}
-        .hero-eyebrow .icon{width:15px;height:15px;color:var(--primary)}
-        .hero h1{font-size:4rem;line-height:1.05;font-weight:600;letter-spacing:-2px;margin-bottom:1.6rem;color:var(--text)}
-        .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-        .hero-p{font-size:1.2rem;color:var(--text-dim);margin-bottom:1.8rem;max-width:500px;line-height:1.65;font-weight:400}
-        .hero-stats{display:flex;gap:2.2rem;margin-bottom:2.2rem;padding:1.3rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:500px}
-        .hstat .num{font-size:1.95rem;font-weight:700;color:var(--text);line-height:1;letter-spacing:-1px}
-        .hstat .num em{font-style:normal;color:var(--primary)}
-        .hstat .lab{font-size:.88rem;color:var(--text-muted);margin-top:.4rem;letter-spacing:.2px;font-weight:500}
-        .hero-btns{display:flex;gap:.8rem;flex-wrap:wrap}
-        .btn{padding:.95rem 1.7rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:1rem;transition:all .35s cubic-bezier(.16,1,.3,1);display:inline-flex;align-items:center;gap:.55rem;position:relative;overflow:hidden}
-        .btn-g{background:var(--primary);color:white}
-        .btn-g::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left .6s}
-        .btn-g:hover::after{left:100%}
-        .btn-g:hover{background:var(--primary-dark);box-shadow:0 10px 30px var(--primary-glow2);transform:translateY(-2px)}
-        .btn-o{background:var(--surface);color:var(--text);border:1px solid var(--border)}
-        .btn-o:hover{border-color:var(--border-lit);background:var(--bg2)}
-
-        /* PHONE — Authentic Telegram look */
-        .hero-phone{position:absolute;right:2rem;top:50%;transform:translateY(-50%);width:370px}
-        .phone{background:#FFFFFF;border-radius:32px;border:8px solid #1A1A1A;overflow:hidden;box-shadow:0 50px 100px rgba(15,23,41,0.18),0 8px 30px rgba(15,23,41,0.08);position:relative}
-        .phone::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#1A1A1A;border-radius:0 0 18px 18px;z-index:10}
-        .ph-top{background:linear-gradient(180deg,#517DA2 0%,#5C8AB1 100%);padding:2.4rem 1rem .7rem;display:flex;align-items:center;gap:.7rem;color:white}
-        .ph-back{color:white;opacity:.9;font-size:1.2rem;font-weight:300}
-        .ph-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7B68EE,#9370DB);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:white;flex-shrink:0}
-        .ph-info{flex:1;line-height:1.2}
-        .ph-nm{font-weight:600;font-size:.95rem}
-        .ph-st{font-size:.72rem;opacity:.8}
-        .ph-body{padding:1rem .6rem;min-height:340px;display:flex;flex-direction:column;gap:.35rem;background:
-            linear-gradient(180deg, rgba(206,221,201,0.4), rgba(206,221,201,0.4)),
-            url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' opacity='0.4'%3E%3Cpath d='M20 30 Q25 25 30 30 Q35 35 30 40' stroke='%2386B385' fill='none' stroke-width='0.5'/%3E%3Cpath d='M60 50 Q65 45 70 50 Q75 55 70 60' stroke='%2386B385' fill='none' stroke-width='0.5'/%3E%3Cpath d='M40 70 Q45 65 50 70 Q55 75 50 80' stroke='%2386B385' fill='none' stroke-width='0.5'/%3E%3C/svg%3E");
-            background-color: #DDE8D5;
-        }
-        .bb{padding:.55rem .75rem .35rem;border-radius:8px;font-size:.85rem;line-height:1.4;max-width:82%;opacity:0;transform:translateY(8px);word-break:break-word;position:relative;box-shadow:0 1px 2px rgba(0,0,0,0.08)}
-        .bb.on{animation:bbIn .4s cubic-bezier(.16,1,.3,1) forwards}
-        @keyframes bbIn{to{opacity:1;transform:translateY(0)}}
-        .bu{background:#EEFFDE;color:#0F1729;align-self:flex-end;border-bottom-right-radius:2px}
-        .bo{background:white;color:var(--text);border-bottom-left-radius:2px}
-        .bo .hl{color:var(--primary);font-weight:600}
-        .bb-time{font-size:.65rem;color:#7B8E94;float:right;margin-left:.5rem;margin-top:.2rem;display:inline-flex;align-items:center;gap:.15rem;font-weight:400}
-        .bb-time .checks{color:#4FAE4E}
-        .chips{display:flex;gap:.3rem;margin-top:.4rem;flex-wrap:wrap}
-        .chip{padding:.25rem .6rem;border-radius:14px;font-size:.72rem;border:1px solid #DDE6E9;color:var(--primary);background:#F4F8FB;font-weight:500}
-        .chip.a{background:#E8F0FF;border-color:var(--primary);color:var(--primary)}
-
-        /* FLOATING BADGES */
-        .fbadge{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.8rem 1.1rem;box-shadow:0 20px 40px rgba(15,23,41,0.1);z-index:2;display:flex;align-items:center;gap:.7rem}
-        .fbadge-1{top:60px;left:-90px}
-        .fbadge-2{bottom:60px;left:-110px}
-        .fb-icon{width:34px;height:34px;border-radius:8px;background:var(--primary-glow);display:flex;align-items:center;justify-content:center;color:var(--primary)}
-        .fb-icon.orange{background:var(--accent-glow);color:var(--accent)}
-        .fb-l{font-size:.75rem;color:var(--text-muted);margin-bottom:.1rem;letter-spacing:.3px;font-weight:500}
-        .fb-v{font-size:1.35rem;color:var(--primary);font-weight:700;line-height:1;letter-spacing:-.5px}
-        .fb-v.orange{color:var(--accent)}
-
-        /* TELEGRAM CALLOUT */
-        .tg-bar{position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 2rem;background:var(--surface)}
-        .tg-bar-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto auto auto;gap:2rem;align-items:center}
-        .tg-icon-big{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0088CC,#229ED9);display:flex;align-items:center;justify-content:center;color:white}
-        .tg-content h3{font-size:1.2rem;font-weight:600;color:var(--text);margin-bottom:.25rem;letter-spacing:-.3px}
-        .tg-content p{color:var(--text-dim);font-size:1rem;font-weight:400}
-        .tg-pill{padding:.5rem .9rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:.88rem;color:var(--text-dim);font-weight:500;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
-        .tg-pill .icon{width:16px;height:16px;color:var(--primary)}
-
-        /* SECTIONS */
-        .sec{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:6rem 2rem}
-        .sec-ey{font-family:'DM Mono',monospace;font-size:.85rem;font-weight:500;color:var(--primary);text-transform:uppercase;letter-spacing:1.8px;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
-        .sec-ey::before{content:'';width:28px;height:1px;background:var(--primary)}
-        .sec-t{font-size:2.8rem;font-weight:600;margin-bottom:1.2rem;letter-spacing:-1.5px;line-height:1.1;color:var(--text)}
-        .sec-t em{font-style:normal;background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-        .sec-s{color:var(--text-dim);font-size:1.13rem;max-width:560px;font-weight:400;margin-bottom:3.5rem;line-height:1.7}
-
-        /* SCIENCE METHOD */
-        .method-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:3rem;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(15,23,41,0.04)}
-        .method-grid::before{content:'';position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(ellipse,var(--primary-glow),transparent 60%);pointer-events:none}
-        .method-content{position:relative;z-index:1}
-        .method-content h3{font-size:1.65rem;font-weight:600;margin-bottom:1rem;letter-spacing:-.5px}
-        .method-content p{color:var(--text-dim);font-weight:400;margin-bottom:1.5rem;line-height:1.7;font-size:1.02rem}
-        .method-refs{display:flex;flex-direction:column;gap:.7rem}
-        .ref-item{display:flex;align-items:center;gap:.8rem;font-size:.95rem;color:var(--text-dim);padding:.85rem 1.1rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;font-weight:400;line-height:1.4}
-        .ref-item .icon{color:var(--primary);flex-shrink:0}
-        .ref-item strong{color:var(--text);font-weight:600;margin-right:.3rem}
-
-        /* IMPROVED CHART */
-        .chart-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem 1.5rem 1.5rem;overflow:hidden}
-        .chart-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.3rem;letter-spacing:-.2px}
-        .chart-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .chart-legend{display:flex;gap:1.2rem;margin-bottom:1rem;font-size:.82rem}
-        .legend-item{display:flex;align-items:center;gap:.4rem;color:var(--text-dim);font-weight:500}
-        .legend-dot{width:12px;height:3px;border-radius:2px}
-        .legend-dot.primary{background:var(--primary)}
-        .legend-dot.muted{background:var(--text-muted);background-image:linear-gradient(90deg,var(--text-muted) 50%,transparent 50%);background-size:6px 100%}
-        .chart-svg{width:100%;height:240px}
-
-        /* STEPS */
-        .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-        .scard{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2rem;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(15,23,41,0.03)}
-        .scard::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--primary),var(--primary2),transparent);opacity:0;transition:opacity .4s}
-        .scard:hover{transform:translateY(-6px);border-color:var(--border-lit);box-shadow:0 20px 40px rgba(15,23,41,0.08)}
-        .scard:hover::before{opacity:1}
-        .scard-num{font-family:'DM Mono',monospace;font-size:.85rem;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:1rem;font-weight:500}
-        .scard-icon{width:48px;height:48px;border-radius:12px;background:var(--primary-glow);display:flex;align-items:center;justify-content:center;color:var(--primary);margin-bottom:1.2rem}
-        .scard h3{font-size:1.25rem;font-weight:600;margin-bottom:.6rem;letter-spacing:-.3px}
-        .scard p{color:var(--text-dim);font-size:1rem;line-height:1.65;font-weight:400}
-
-        /* FEATURES */
-        .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-        .fcard{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.8rem;transition:all .3s;box-shadow:0 2px 6px rgba(15,23,41,0.03)}
-        .fcard:hover{border-color:var(--border-lit);transform:translateY(-3px);box-shadow:0 12px 24px rgba(15,23,41,0.06)}
-        .fcard-icon{width:40px;height:40px;border-radius:10px;background:var(--primary-glow);display:flex;align-items:center;justify-content:center;color:var(--primary);margin-bottom:1rem}
-        .fcard h3{font-size:1.1rem;font-weight:600;margin-bottom:.45rem;letter-spacing:-.2px}
-        .fcard p{color:var(--text-dim);font-size:.98rem;line-height:1.6;font-weight:400}
-
-        /* EXERCISES */
-        .ex-showcase{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:3rem 2.5rem;text-align:center;box-shadow:0 4px 20px rgba(15,23,41,0.04)}
-        .ex-num{font-size:5.5rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;letter-spacing:-3px;margin-bottom:.6rem}
-        .ex-label{font-size:1.15rem;color:var(--text-dim);margin-bottom:2rem;font-weight:500}
-        .ex-types{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;max-width:820px;margin:0 auto}
-        .ex-types span{padding:.5rem .9rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:.9rem;color:var(--text-dim);font-weight:500;transition:all .2s}
-        .ex-types span:hover{background:var(--primary-glow);border-color:var(--primary);color:var(--primary);cursor:default}
-
-        /* TEACHER VALUE SECTION (renamed from "Earn") */
-        .calc-outer{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden;position:relative;box-shadow:0 4px 20px rgba(15,23,41,0.04)}
-        .calc-outer::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,var(--primary-glow),transparent 50%);pointer-events:none}
-        .calc-top{position:relative;background:var(--bg2);padding:1.8rem 2.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem}
-        .calc-top .icon{color:var(--primary)}
-        .calc-top p{color:var(--text-dim);font-size:1rem;font-weight:400;margin:0}
-        .calc-body{position:relative;padding:3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-        .sgroup{margin-bottom:1.8rem}
-        .slabel{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-size:.98rem;color:var(--text-dim);font-weight:500}
-        .slabel .sv{color:var(--primary);font-weight:700;font-size:1.4rem;letter-spacing:-.3px}
-        input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--border);outline:none;cursor:pointer}
-        input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--primary);cursor:pointer;box-shadow:0 4px 12px var(--primary-glow2);transition:transform .2s}
-        input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
-        .res-center{text-align:center}
-        .calc-breakdown{display:flex;flex-direction:column;gap:.7rem;text-align:left;max-width:300px;margin:0 auto}
-        .cb-row{display:flex;justify-content:space-between;align-items:center;font-size:1rem;color:var(--text-dim);font-weight:500}
-        .cb-row.cb-minus{color:var(--text-muted)}
-        .cb-row.cb-final{margin-top:.3rem;align-items:flex-end}
-        .cb-final .cb-l{color:var(--text);font-weight:600;font-size:1.05rem}
-        .cb-v{font-weight:600;font-family:'DM Mono',monospace}
-        .cb-divider{height:1px;background:var(--border);margin:.3rem 0}
-        .res-big-inline{font-size:2.4rem;background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;font-weight:700;letter-spacing:-1px;font-family:'DM Sans',sans-serif!important}
-        .res-disclaimer{display:flex;align-items:center;gap:.4rem;justify-content:center;margin-top:1.2rem;font-size:.85rem;color:var(--text-muted);font-weight:400;max-width:300px;margin-left:auto;margin-right:auto;line-height:1.4}
-        .res-disclaimer .icon{color:var(--text-muted);flex-shrink:0}
-        .res-big{font-size:5rem;background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;font-weight:700;letter-spacing:-3px}
-        .res-lab{color:var(--text-dim);font-size:1.05rem;margin-top:.5rem;font-weight:500}
-        .res-sub{color:var(--text-muted);font-size:.92rem;margin-top:.8rem;font-weight:500;font-family:'DM Mono',monospace}
-
-        /* PRICING */
-        .pcard{max-width:480px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2.8rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(15,23,41,0.05)}
-        .pcard::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:50%;height:2px;background:linear-gradient(90deg,transparent,var(--primary),transparent)}
-        .pcard::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:30%;height:80px;background:radial-gradient(ellipse,var(--primary-glow),transparent);pointer-events:none}
-        .pc-label{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.8px;font-weight:500}
-        .pm{font-size:3.2rem;margin:1.2rem 0 .5rem;font-weight:700;letter-spacing:-2px}
-        .pm .c{background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .pm .pe{font-size:1.1rem;color:var(--text-muted);font-weight:500;letter-spacing:0}
-        .pn{color:var(--text-dim);margin-bottom:1.8rem;font-size:1rem;font-weight:400}
-        .pl{list-style:none;text-align:left;margin-bottom:2rem}
-        .pl li{padding:.6rem 0;font-size:.98rem;color:var(--text-dim);display:flex;align-items:center;gap:.8rem;font-weight:400}
-        .pl li .icon{color:var(--primary);flex-shrink:0;width:18px;height:18px}
-
-        /* CTA */
-        .cta-sec{text-align:center;padding:7rem 2rem;position:relative;z-index:1}
-        .cta-sec h2{font-size:3rem;font-weight:600;margin-bottom:1rem;letter-spacing:-1.5px;line-height:1.1}
-        .cta-sec h2 em{font-style:normal;background:linear-gradient(135deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-        .cta-sec p{color:var(--text-dim);font-size:1.15rem;margin-bottom:2.2rem;font-weight:400;max-width:480px;margin-left:auto;margin-right:auto}
-        .cta-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
-
-        /* FOOTER */
-        footer{border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;position:relative;z-index:1}
-        footer p{color:var(--text-muted);font-size:.92rem;font-weight:400}
-        footer a{color:var(--primary);text-decoration:none;font-weight:500}
-
-        @media(max-width:900px){
-            body{font-size:16px}
-            .hero{flex-direction:column;padding:9rem 1.5rem 3rem;min-height:auto}
-            .hero h1{font-size:2.5rem;letter-spacing:-1.5px}
-            .hero-phone{position:relative;right:auto;top:auto;transform:none;width:100%;margin-top:2rem}
-            .phone{max-width:340px;margin:0 auto}
-            .fbadge{display:none}
-            .hero-stats{gap:1.5rem;flex-wrap:wrap}
-            .steps,.fgrid{grid-template-columns:1fr}
-            .calc-body,.method-grid{grid-template-columns:1fr;padding:2rem}
-            .res-big{font-size:3.5rem}
-            .sec-t{font-size:2rem}
-            .cta-sec h2{font-size:2rem}
-            .nav-r a:not(.nav-cta){display:none}
-            .tg-bar-inner{grid-template-columns:1fr;gap:1.2rem;text-align:left}
-            .ex-num{font-size:3.8rem}
-        }
-    </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
     <div class="nav-inner">
-        <a href="#" class="logo">wordivo<span>.</span></a>
+        <a href="index.html" class="logo">wordivo<span>.</span></a>
         <div class="nav-r">
-            <a href="#science">Science</a>
-            <a href="#exercises">Exercises</a>
-            <a href="#teachers">For teachers</a>
+            <a href="teachers.html">For teachers</a>
+            <a href="learn.html">For learners</a>
+            <a href="index.html#science">Science</a>
+            <a href="index.html#pricing">Pricing</a>
             <a href="https://t.me/wordivobot" class="nav-cta">
                 <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
                 Open in Telegram
@@ -297,22 +36,22 @@
     <div class="hero-content">
         <div class="hero-eyebrow">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v.5a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M12 8v8"/><path d="M5 12H2"/><path d="M22 12h-3"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/></svg>
-            Science-backed memory tool for language teachers
+            Science-backed vocabulary that sticks
         </div>
-        <h1>Your students <em>actually remember</em> the words you teach</h1>
-        <p class="hero-p">A Telegram bot that automates vocabulary practice using proven memory science. Works for any language you teach.</p>
+        <h1>Learn words. <em>Actually remember</em> them.</h1>
+        <p class="hero-p">A Telegram bot that turns vocabulary into long-term memory with spaced repetition — for solo learners and the teachers who guide them.</p>
         <div class="hero-stats">
             <div class="hstat">
-                <div class="num"><em>21+</em></div>
+                <div class="num"><em>21</em></div>
                 <div class="lab">Exercise types</div>
             </div>
             <div class="hstat">
-                <div class="num"><em>8</em></div>
+                <div class="num"><em>10</em></div>
                 <div class="lab">Mastery stages</div>
             </div>
             <div class="hstat">
-                <div class="num">+<em>340%</em></div>
-                <div class="lab">Better retention</div>
+                <div class="num">7-day</div>
+                <div class="lab">Free trial</div>
             </div>
         </div>
         <div class="hero-btns">
@@ -333,7 +72,7 @@
             </div>
             <div>
                 <div class="fb-l">Retention</div>
-                <div class="fb-v">+340%</div>
+                <div class="fb-v">Long-term</div>
             </div>
         </div>
         <div class="phone">
@@ -359,6 +98,32 @@
     </div>
 </section>
 
+<!-- AUDIENCE CHOOSER -->
+<section class="sec paths-sec">
+    <div class="paths">
+        <a class="path-card learner gsap-up" href="learn.html">
+            <div class="path-icon">
+                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <h3>I'm learning a language</h3>
+            <p>Add the words you want to master. Wordivo schedules the perfect moment to review each one — so it actually sticks.</p>
+            <span class="path-link">For learners
+                <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+        </a>
+        <a class="path-card gsap-up" href="teachers.html">
+            <div class="path-icon">
+                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>I teach a language</h3>
+            <p>Assign vocabulary after each lesson, track every student's progress automatically, and earn a side income.</p>
+            <span class="path-link">For teachers
+                <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+        </a>
+    </div>
+</section>
+
 <!-- TELEGRAM CALLOUT -->
 <div class="tg-bar">
     <div class="tg-bar-inner">
@@ -366,7 +131,7 @@
             <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
         </div>
         <div class="tg-content">
-            <h3>Lives inside Telegram — the chat your students already use</h3>
+            <h3>Lives inside Telegram — the chat you already use</h3>
             <p>No new app to install. No accounts to create. No tabs to keep open.</p>
         </div>
         <div class="tg-pill">
@@ -388,12 +153,12 @@
 <section class="sec" id="science">
     <div class="sec-ey gsap-fade">The science</div>
     <h2 class="sec-t gsap-fade">Built on <em>140 years</em><br>of memory research</h2>
-    <p class="sec-s gsap-fade">Spaced repetition isn't a gimmick. It's the most studied learning technique in cognitive psychology — and Wordivo applies it automatically to every word your students learn.</p>
+    <p class="sec-s gsap-fade">Spaced repetition isn't a gimmick. It's the most studied learning technique in cognitive psychology — and Wordivo applies it automatically to every word you learn.</p>
     <div class="method-grid gsap-up">
         <div class="method-content">
-            <h3>From Ebbinghaus to your students</h3>
-            <p>In 1885, Hermann Ebbinghaus discovered the forgetting curve — we lose around 70% of new information within 24 hours. The solution? Review at increasing intervals, just before you'd forget.</p>
-            <p>Wordivo's 8-stage algorithm applies the same memory science used by flashcard apps trusted by millions of medical students and language learners worldwide.</p>
+            <h3>From Ebbinghaus to your screen</h3>
+            <p>In 1885, Hermann Ebbinghaus discovered the forgetting curve — we lose around 70% of new information within 24 hours. The fix? Review at increasing intervals, just before you'd forget.</p>
+            <p>Wordivo's 10-stage algorithm applies the same memory science used by flashcard methods trusted by millions of medical students and language learners worldwide.</p>
             <div class="method-refs">
                 <div class="ref-item">
                     <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
@@ -410,60 +175,38 @@
             </div>
         </div>
 
-        <!-- IMPROVED CHART -->
+        <!-- CHART -->
         <div class="chart-card">
             <div class="chart-title">The forgetting curve</div>
-            <div class="chart-sub">How much your students remember over 30 days</div>
+            <div class="chart-sub">How much you remember over 30 days</div>
             <div class="chart-legend">
-                <div class="legend-item"><span class="legend-dot primary"></span> With Wordivo</div>
+                <div class="legend-item"><span class="legend-dot primary"></span> With spaced repetition</div>
                 <div class="legend-item"><span class="legend-dot muted"></span> Without review</div>
             </div>
             <svg class="chart-svg" viewBox="0 0 420 240" preserveAspectRatio="none">
-                <!-- Y axis labels -->
                 <text x="8" y="30" font-size="11" fill="#64748B" font-family="DM Mono">100%</text>
                 <text x="8" y="105" font-size="11" fill="#64748B" font-family="DM Mono">50%</text>
                 <text x="8" y="180" font-size="11" fill="#64748B" font-family="DM Mono">0%</text>
-
-                <!-- Grid lines -->
                 <line x1="50" y1="25" x2="410" y2="25" stroke="#E8E3D9" stroke-width="1"/>
                 <line x1="50" y1="100" x2="410" y2="100" stroke="#E8E3D9" stroke-width="1" stroke-dasharray="3 3"/>
                 <line x1="50" y1="175" x2="410" y2="175" stroke="#E8E3D9" stroke-width="1"/>
-
-                <!-- X axis labels -->
                 <text x="50" y="200" font-size="11" fill="#64748B" font-family="DM Mono">Day 1</text>
                 <text x="140" y="200" font-size="11" fill="#64748B" font-family="DM Mono">Day 7</text>
                 <text x="240" y="200" font-size="11" fill="#64748B" font-family="DM Mono">Day 14</text>
                 <text x="370" y="200" font-size="11" fill="#64748B" font-family="DM Mono">Day 30</text>
-
-                <!-- Without review (gray dashed) -->
                 <path d="M 50 25 Q 90 100 140 145 Q 200 170 280 173 L 410 175"
                       stroke="#94A3B8" stroke-width="2" fill="none" stroke-dasharray="5 4"/>
-
-                <!-- With Wordivo (primary solid) - sawtooth showing reviews -->
-                <path d="M 50 25
-                         L 100 65
-                         L 100 30
-                         L 170 60
-                         L 170 28
-                         L 240 55
-                         L 240 25
-                         L 320 45
-                         L 320 22
-                         L 410 35"
+                <path d="M 50 25 L 100 65 L 100 30 L 170 60 L 170 28 L 240 55 L 240 25 L 320 45 L 320 22 L 410 35"
                       stroke="#4F46E5" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
-
-                <!-- Review markers -->
                 <circle cx="100" cy="30" r="5" fill="#4F46E5" stroke="white" stroke-width="2"/>
                 <circle cx="170" cy="28" r="5" fill="#4F46E5" stroke="white" stroke-width="2"/>
                 <circle cx="240" cy="25" r="5" fill="#4F46E5" stroke="white" stroke-width="2"/>
                 <circle cx="320" cy="22" r="5" fill="#4F46E5" stroke="white" stroke-width="2"/>
-
-                <!-- Endpoint labels -->
-                <text x="370" y="155" font-size="10" fill="#94A3B8" font-family="DM Mono">21% retained</text>
-                <text x="370" y="20" font-size="10" fill="#4F46E5" font-family="DM Mono" font-weight="500">92% retained</text>
+                <text x="360" y="155" font-size="10" fill="#94A3B8" font-family="DM Mono">~20% kept</text>
+                <text x="350" y="20" font-size="10" fill="#4F46E5" font-family="DM Mono" font-weight="500">memory stays high</text>
             </svg>
-            <p style="font-size:.82rem;color:var(--text-muted);margin-top:.8rem;line-height:1.5">
-                Each blue dot represents a scheduled review. Memory stays high; without reviews, it drops to ~20% by day 30.
+            <p style="font-size:.8rem;color:var(--text-muted);margin-top:.8rem;line-height:1.5">
+                Each blue dot is a scheduled review. Illustrative of spaced-repetition research (Ebbinghaus, 1885; Cepeda et al., 2006) — individual results vary.
             </p>
         </div>
     </div>
@@ -472,182 +215,83 @@
 <!-- EXERCISES -->
 <section class="sec" id="exercises">
     <div class="sec-ey gsap-fade">Practice variety</div>
-    <h2 class="sec-t gsap-fade">21 ways to practice<br>the same word</h2>
+    <h2 class="sec-t gsap-fade">Many ways to practice<br>the same word</h2>
     <p class="sec-s gsap-fade">Variety prevents boredom and forces the brain to retrieve information from different angles — recognition, recall, context, production. That's how words stop being "studied" and start being known.</p>
     <div class="ex-showcase gsap-up">
-        <div class="ex-num">21+</div>
-        <div class="ex-label">Distinct exercise types per word</div>
+        <div class="ex-num">21</div>
+        <div class="ex-label">Exercise types per word — and growing</div>
         <div class="ex-types">
             <span>Translation quiz</span>
+            <span>Reverse translation</span>
             <span>Missing letters</span>
             <span>Type the word</span>
-            <span>Definition match</span>
-            <span>Synonym choice</span>
-            <span>Antonym choice</span>
             <span>Word scramble</span>
-            <span>Correct usage</span>
-            <span>Fill in blank</span>
-            <span>Guess from definition</span>
-            <span>Guess from synonyms</span>
-            <span>Reverse translation</span>
-            <span>Word form</span>
-            <span>Collocations</span>
-            <span>Context match</span>
             <span>Anagram</span>
-            <span>Audio translation</span>
-            <span>Spell from audio</span>
-            <span>Audio definition</span>
-            <span>+ more</span>
-        </div>
-    </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="sec">
-    <div class="sec-ey gsap-fade">How it works</div>
-    <h2 class="sec-t gsap-fade">Three steps. Thirty seconds.</h2>
-    <p class="sec-s gsap-fade">After each lesson, add words. The algorithm handles everything else.</p>
-    <div class="steps">
-        <div class="scard gsap-up">
-            <div class="scard-num">01</div>
-            <div class="scard-icon">
-                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-            </div>
-            <h3>Add words with translations</h3>
-            <p>Type words in one message. Assign to individual students or entire groups. You control every translation.</p>
-        </div>
-        <div class="scard gsap-up">
-            <div class="scard-num">02</div>
-            <div class="scard-icon">
-                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
-            </div>
-            <h3>Algorithm schedules reviews</h3>
-            <p>Based on the forgetting curve. Each word resurfaces at the perfect interval — just before your student would forget.</p>
-        </div>
-        <div class="scard gsap-up">
-            <div class="scard-num">03</div>
-            <div class="scard-icon">
-                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-            </div>
-            <h3>Track every student</h3>
-            <p>See difficult words, activity levels, and detailed progress for each student. Zero manual tracking required.</p>
-        </div>
-    </div>
-</section>
-
-<!-- FEATURES -->
-<section class="sec">
-    <div class="sec-ey gsap-fade">Features</div>
-    <h2 class="sec-t gsap-fade">Built for how teachers<br>actually work</h2>
-    <p class="sec-s gsap-fade">No extra apps. No dashboards to learn. Just Telegram.</p>
-    <div class="fgrid">
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg></div>
-            <h3>You control translations</h3>
-            <p>One English word can mean different things to different students. You decide every translation.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/></svg></div>
-            <h3>8 stages of mastery</h3>
-            <p>Each word travels from recognition to free production — every review pushes it forward.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg></div>
-            <h3>Recent words</h3>
-            <p>Your working journal. Reassign any recent word to another student in two taps.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <h3>Groups & individuals</h3>
-            <p>Create classes. Assign words to everyone at once or customize per student.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/><circle cx="6" cy="6" r="3"/><line x1="6" y1="4.5" x2="6" y2="7.5"/><line x1="4.5" y1="6" x2="7.5" y2="6"/></svg></div>
-            <h3>Students add words too</h3>
-            <p>They add their own — you see them marked separately. Great signal for lesson planning.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="14" height="10" rx="1"/><rect x="14" y="8" width="8" height="13" rx="1"/><line x1="6" y1="17" x2="10" y2="17"/></svg></div>
-            <h3>Works on every device</h3>
-            <p>Phone, tablet, laptop — anywhere Telegram runs. No installs, no logins.</p>
-        </div>
-    </div>
-</section>
-
-<!-- TEACHER VALUE (softer messaging) -->
-<section class="sec" id="teachers">
-    <div class="sec-ey gsap-fade">For teachers</div>
-    <h2 class="sec-t gsap-fade">Help students learn better —<br>and <em>get rewarded</em> for it</h2>
-    <p class="sec-s gsap-fade">Wordivo includes a built-in revenue share for teachers. Set your own subscription price; the platform takes a flat €3, and the rest goes to you. Most teachers cover their own tools and earn a meaningful side income.</p>
-    <div class="calc-outer gsap-up">
-        <div class="calc-top">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <p>See how Wordivo can supplement your teaching income</p>
-        </div>
-        <div class="calc-body">
-            <div>
-                <div class="sgroup">
-                    <div class="slabel"><span>Number of students</span><span class="sv" id="sVal">10</span></div>
-                    <input type="range" id="sSlider" min="1" max="30" value="10">
-                </div>
-                <div class="sgroup">
-                    <div class="slabel"><span>Subscription price per month</span><span class="sv" id="pVal">€7</span></div>
-                    <input type="range" id="pSlider" min="3" max="20" value="7">
-                </div>
-            </div>
-            <div class="res-center">
-                <div class="calc-breakdown">
-                    <div class="cb-row">
-                        <span class="cb-l">Total subscriptions</span>
-                        <span class="cb-v" id="cbTotal">€70</span>
-                    </div>
-                    <div class="cb-row cb-minus">
-                        <span class="cb-l">Platform fee (€3 × students)</span>
-                        <span class="cb-v" id="cbFee">−€30</span>
-                    </div>
-                    <div class="cb-divider"></div>
-                    <div class="cb-row cb-final">
-                        <span class="cb-l">Your share</span>
-                        <span class="cb-v res-big-inline" id="resAmt">€40</span>
-                    </div>
-                </div>
-                <div class="res-disclaimer">
-                    <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                    <span>Before payment processing fees and local taxes</span>
-                </div>
-            </div>
+            <span>Anagram + hint</span>
+            <span>Fix the typo</span>
+            <span>Tap the letters</span>
+            <span>Fill in the blank</span>
+            <span>Recall from memory</span>
+            <span>Definition match</span>
+            <span>Guess from definition</span>
+            <span>Guess from synonym</span>
+            <span>Guess from antonym</span>
+            <span>Synonym match</span>
+            <span>Collocations</span>
+            <span>Word forms</span>
+            <span>Audio pronunciation</span>
+            <span class="soon">+ more on the way</span>
         </div>
     </div>
 </section>
 
 <!-- PRICING -->
-<section class="sec">
+<section class="sec" id="pricing">
     <div class="sec-ey gsap-fade" style="justify-content:center">Pricing</div>
     <h2 class="sec-t gsap-fade" style="text-align:center">Simple. Transparent.</h2>
-    <p class="sec-s gsap-fade" style="text-align:center;margin-left:auto;margin-right:auto">One subscription. One flat platform fee. No hidden charges.</p>
-    <div class="pcard gsap-up">
-        <div class="pc-label">Student subscription</div>
-        <div class="pm"><span class="c">€3</span>–<span class="c">€20</span> <span class="pe">/month</span></div>
-        <p class="pn">Price set by the teacher. Most students pay around €7 — less than a coffee a week.</p>
-        <ul class="pl">
-            <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unlimited vocabulary practice</li>
-            <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 21+ adaptive exercise types</li>
-            <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Scientific spaced repetition</li>
-            <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Personal progress tracking</li>
-            <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Usage examples for every word</li>
-            <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Works on any device with Telegram</li>
-        </ul>
-        <a href="https://t.me/wordivobot" class="btn btn-g" style="width:100%;justify-content:center">
-            Get started
-            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+    <p class="sec-s gsap-fade" style="text-align:center;margin-left:auto;margin-right:auto">Start free for 7 days. Learn solo, or join your teacher's group.</p>
+    <div class="pricing-grid gsap-up">
+        <div class="pcard">
+            <div class="pc-label">Solo learner</div>
+            <div class="pm"><span class="c">€5</span> <span class="pe">/ month</span></div>
+            <p class="pn">Learn any language on your own, at your own pace.</p>
+            <ul class="pl">
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Add your own words, any language</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 21 adaptive exercise types</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Spaced repetition (10 stages)</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Pronunciation audio</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Progress tracking, any device</li>
+            </ul>
+            <a href="learn.html" class="btn btn-o" style="width:100%;justify-content:center">
+                For learners
+                <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
+        <div class="pcard featured">
+            <div class="pcard-badge">Most popular</div>
+            <div class="pc-label">With a teacher</div>
+            <div class="pm"><span class="c">€5</span>–<span class="c">€20</span> <span class="pe">/ month</span></div>
+            <p class="pn">Price set by your teacher. Most pay around €7 — less than a coffee a week.</p>
+            <ul class="pl">
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Everything in Solo, plus:</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Words assigned by your teacher</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Your teacher tracks your progress</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Usage examples for every word</li>
+                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 7-day free trial included</li>
+            </ul>
+            <a href="https://t.me/wordivobot" class="btn btn-g" style="width:100%;justify-content:center">
+                Get started
+                <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
     </div>
+    <p class="price-foot">Are you a teacher? Wordivo is <strong>free to use</strong> — you set your students' price and earn. <a href="teachers.html">See the teacher plan →</a></p>
 </section>
 
 <!-- CTA -->
 <section class="cta-sec">
-    <h2 class="gsap-fade">Ready to make your lessons <em>stick</em>?</h2>
-    <p class="gsap-fade">Join teachers automating vocabulary practice — and earning while they do.</p>
+    <h2 class="gsap-fade">Ready to make words <em>stick</em>?</h2>
+    <p class="gsap-fade">Start free in Telegram — whether you're learning solo or teaching a class.</p>
     <div class="cta-btns gsap-fade">
         <a href="https://t.me/wordivobot" class="btn btn-g">
             <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
@@ -661,7 +305,18 @@
 </section>
 
 <footer>
-    <p>© 2026 Wordivo · <a href="mailto:hello@wordivo.co">hello@wordivo.co</a></p>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="teachers.html">For teachers</a>
+            <a href="learn.html">For learners</a>
+            <a href="index.html#science">Science</a>
+            <a href="index.html#pricing">Pricing</a>
+            <a href="terms.html">Terms</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="refund.html">Refunds</a>
+        </div>
+        <p>Made in Kyiv 🇺🇦 · © 2026 Wordivo · <a href="mailto:hello@wordivo.co">hello@wordivo.co</a> · Payments securely processed by Paddle</p>
+    </div>
 </footer>
 
 <script>
@@ -680,12 +335,12 @@ ScrollTrigger.create({
     onLeaveBack:()=>document.querySelector('nav').style.background='rgba(251,249,245,0.85)'
 });
 
-// CHAT with Telegram-style timestamps and read receipts
+// CHAT — universal practice flow
 const msgs = [
-    {t:'u', txt:'mortgage — hipoteca, landlord — propietario', time:'14:32'},
-    {t:'b', h:'<span class="hl">✓ Added 2 words</span><br>Assign to:<div class="chips"><span class="chip a">Anna ✓</span><span class="chip a">Mark ✓</span><span class="chip">Olga</span></div><span class="bb-time">14:32</span>'},
-    {t:'b', h:'📊 Anna\'s progress<br><span class="hl">45 words</span> · 82% retention<br>Next review: <em>tomorrow 18:00</em><span class="bb-time">14:33</span>'},
-    {t:'b', h:'🎯 Mark completed today\'s review<br><span class="hl">5/5</span> correct · Stage 4 reached<span class="bb-time">15:08</span>'}
+    {t:'b', h:'🎯 Time to practice!<br>What does <span class="hl">"resilient"</span> mean?'},
+    {t:'u', txt:'стійкий', time:'09:15'},
+    {t:'b', h:'<span class="hl">✓ Correct!</span> Stage 4 → 5<br>Next review in 6 days<span class="bb-time">09:15</span>'},
+    {t:'b', h:'📈 This week: <span class="hl">47 words</span> reviewed · 91% recall<span class="bb-time">09:16</span>'}
 ];
 const chatEl = document.getElementById('chat');
 let mi = 0;
@@ -709,37 +364,19 @@ function typeMsg(){
                 mi++;
                 setTimeout(typeMsg, 700);
             }
-        }, 22);
+        }, 32);
     } else {
         d.innerHTML = m.h;
         chatEl.appendChild(d);
         setTimeout(()=>{d.classList.add('on'); mi++; setTimeout(typeMsg, 1400)}, 500);
     }
 }
-setTimeout(typeMsg, 2000);
-
-// CALCULATOR
-const ss = document.getElementById('sSlider');
-const ps = document.getElementById('pSlider');
-function calc(){
-    const s = +ss.value, p = +ps.value;
-    const total = p * s;
-    const fee = 3 * s;
-    const share = (p - 3) * s;
-    document.getElementById('sVal').textContent = s;
-    document.getElementById('pVal').textContent = '€' + p;
-    document.getElementById('cbTotal').textContent = '€' + total;
-    document.getElementById('cbFee').textContent = '−€' + fee;
-    document.getElementById('resAmt').textContent = '€' + share;
-}
-ss.addEventListener('input', calc);
-ps.addEventListener('input', calc);
-calc();
+setTimeout(typeMsg, 1500);
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+        const id = a.getAttribute('href');
+        if(id.length>1){ e.preventDefault(); document.querySelector(id).scrollIntoView({behavior:'smooth'}); }
     });
 });
 </script>
