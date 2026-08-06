@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordivo for Teachers — your students remember what you teach</title>
-    <meta name="description" content="A Telegram bot for language teachers. Add vocabulary after each lesson — Wordivo handles spaced repetition, exercises, and progress tracking, and pays you a share.">
+    <title>Wordivo for Teachers — see your lessons land</title>
+    <meta name="description" content="A Telegram bot for language teachers. Add vocabulary after each lesson — Wordivo keeps it alive between lessons and shows you it worked: what each student has mastered, and voice notes of them using your words.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,8 +38,8 @@
             <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
             For language teachers
         </div>
-        <h1>Your students <em>actually remember</em> the words you teach</h1>
-        <p class="hero-p">Add the words and phrases from each lesson. Wordivo helps your students truly absorb them into active use — with spaced repetition, exercises, and progress tracking — and pays you a share of every subscription.</p>
+        <h1>Your students <em>actually remember</em> — and you get to hear it</h1>
+        <p class="hero-p">Add the words from each lesson. Wordivo brings them back until they stick, then shows you it worked: what every student has mastered, and voice notes of them using your words. You also earn a share of each subscription.</p>
         <div class="hero-stats">
             <div class="hstat">
                 <div class="num"><em>€3–20</em></div>
@@ -125,8 +125,8 @@
             <div class="scard-icon">
                 <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
             </div>
-            <h3>Track every student</h3>
-            <p>See difficult words, activity levels, and detailed progress for each student. Zero manual tracking required.</p>
+            <h3>You see it land</h3>
+            <p>Your student list shows how many words each one has mastered — and their voice notes using your words arrive in your DMs.</p>
         </div>
     </div>
 </section>
@@ -163,9 +163,9 @@
             <p>They add their own — you see them marked separately. Great signal for lesson planning.</p>
         </div>
         <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="14" height="10" rx="1"/><rect x="14" y="8" width="8" height="13" rx="1"/><line x1="6" y1="17" x2="10" y2="17"/></svg></div>
-            <h3>Works on every device</h3>
-            <p>Phone, tablet, laptop — anywhere Telegram runs. No installs, no logins.</p>
+            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+            <h3>You hear them speak</h3>
+            <p>Students record a short voice note using words you gave them. It lands in your DMs — the clearest proof a lesson stuck.</p>
         </div>
     </div>
 </section>
@@ -219,7 +219,7 @@
 <!-- CTA -->
 <section class="cta-sec">
     <h2 class="gsap-fade">Ready to make your lessons <em>stick</em>?</h2>
-    <p class="gsap-fade">Join teachers automating vocabulary practice — and earning while they do.</p>
+    <p class="gsap-fade">Join teachers whose students keep the words — and who get the credit for it.</p>
     <div class="cta-btns gsap-fade">
         <a href="https://t.me/wordivobot" class="btn btn-g">
             <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
@@ -268,7 +268,8 @@ const msgs = [
     {t:'u', txt:'mortgage — hipoteca, landlord — propietario', time:'14:32'},
     {t:'b', h:'Found <span class="hl">2 pairs</span>. Assign them?<div class="chips"><span class="chip a">Anna ✓</span><span class="chip a">Mark ✓</span><span class="chip">Olga</span></div><span class="bb-time">14:32</span>'},
     {t:'b', h:'<span class="hl">✓ Assigned to Anna &amp; Mark</span><br>They\'ll start reviewing today.<span class="bb-time">14:32</span>'},
-    {t:'b', h:'📊 <b>Your students</b><br>• Anna — 45 words, <span class="hl">12 mastered</span><br>• Mark — 38 words, <span class="hl">9 mastered</span><span class="bb-time">18:30</span>'}
+    {t:'b', h:'📊 <b>Your students</b><br>• Anna — 45 words, <span class="hl">12 mastered</span><br>• Mark — 38 words, <span class="hl">9 mastered</span><span class="bb-time">18:30</span>'},
+    {t:'b', h:'🎤 <b>Anna recorded a voice note</b><br>She used <span class="hl">mortgage</span> and <span class="hl">landlord</span><span class="bb-time">Sat 11:04</span>'}
 ];
 const chatEl = document.getElementById('chat');
 let mi = 0;
