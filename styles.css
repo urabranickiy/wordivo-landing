@@ -113,8 +113,10 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;backdrop-filte
 
 /* FLOATING BADGES */
 .fbadge{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.8rem 1.1rem;box-shadow:0 20px 40px rgba(15,23,41,0.1);z-index:2;display:flex;align-items:center;gap:.7rem}
-.fbadge-1{top:60px;left:-90px}
-.fbadge-2{bottom:60px;left:-110px}
+.fbadge-1{top:-16px;left:-70px}
+.fbadge-2{bottom:-16px;left:-90px}
+/* Below 1200px the text column sits close enough that a badge overhang lands on the headline or the stats. */
+@media(max-width:1199px){.fbadge{display:none}}
 .fb-icon{width:34px;height:34px;border-radius:8px;background:var(--primary-glow);display:flex;align-items:center;justify-content:center;color:var(--primary)}
 .fb-icon.orange{background:var(--accent-glow);color:var(--accent)}
 .fb-l{font-size:.75rem;color:var(--text-muted);margin-bottom:.1rem;letter-spacing:.3px;font-weight:500}
