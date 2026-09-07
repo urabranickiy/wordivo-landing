@@ -9,7 +9,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <meta name="theme-color" content="#FBF9F5">
+    <meta name="theme-color" content="#F5EFE4">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Wordivo">
     <meta property="og:title" content="Terms of Service — Wordivo">
@@ -20,7 +20,6 @@
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="/assets/fonts/fonts.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,15 +27,19 @@
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">wordivo<span>.</span></a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
         <div class="nav-r">
             <a href="teachers.html">For teachers</a>
             <a href="learn.html">For learners</a>
             <a href="index.html#science">Science</a>
             <a href="index.html#pricing">Pricing</a>
+        </div>
+        <div class="nav-end">
             <a href="https://t.me/wordivobot" class="nav-cta">
                 <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
                 Open in Telegram
             </a>
+            <label for="nav-toggle" class="nav-burger" aria-label="Menu"><span></span></label>
         </div>
     </div>
 </nav>

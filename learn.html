@@ -9,7 +9,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <meta name="theme-color" content="#FBF9F5">
+    <meta name="theme-color" content="#F5EFE4">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Wordivo">
     <meta property="og:title" content="Wordivo for Learners — never forget a word you learn">
@@ -19,7 +19,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="/assets/fonts/fonts.css">
     <link rel="stylesheet" href="styles.css">
     <script src="/assets/js/gsap.min.js"></script>
     <script src="/assets/js/ScrollTrigger.min.js"></script>
@@ -30,229 +29,189 @@
 <nav>
     <div class="nav-inner">
         <a href="index.html" class="logo">wordivo<span>.</span></a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
         <div class="nav-r">
             <a href="teachers.html">For teachers</a>
             <a href="learn.html" class="active">For learners</a>
             <a href="index.html#science">Science</a>
             <a href="index.html#pricing">Pricing</a>
+        </div>
+        <div class="nav-end">
             <a href="https://t.me/wordivobot" class="nav-cta">
                 <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
                 Open in Telegram
             </a>
+            <label for="nav-toggle" class="nav-burger" aria-label="Menu"><span></span></label>
         </div>
     </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-content">
-        <div class="hero-eyebrow">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            For learners
-        </div>
-        <h1>Never forget a word<br>you <em>learn</em></h1>
-        <p class="hero-p">Save the new words and phrases you pick up — from a lesson, a show, real life — and Wordivo helps you remember them and actually use them.</p>
-        <div class="hero-stats">
-            <div class="hstat">
-                <div class="num"><em>25</em></div>
-                <div class="lab">Free words, no card</div>
+    <svg class="hero-curve" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+        <path class="c-forget" d="M0 40 C 240 200, 600 214, 1440 216" vector-effect="non-scaling-stroke"/>
+        <path class="c-keep" d="M0 40 L160 120 L160 48 L400 118 L400 44 L700 110 L700 40 L1040 96 L1040 36 L1440 70" vector-effect="non-scaling-stroke"/>
+        <circle class="c-dot" cx="160" cy="48" r="4"/><circle class="c-dot" cx="400" cy="44" r="4"/><circle class="c-dot" cx="700" cy="40" r="4"/><circle class="c-dot" cx="1040" cy="36" r="4"/>
+    </svg>
+    <div class="wrap hero-grid">
+        <div class="hero-copy">
+            <p class="eyebrow">For learners</p>
+            <h1>Never forget a word you <em class="mark">learn</em></h1>
+            <p class="lede">Save the new words and phrases you pick up — from a lesson, a show, real life — and Wordivo helps you remember them and actually use them.</p>
+            <div class="hero-cta">
+                <a href="https://t.me/wordivobot" class="btn btn-ink">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+                    Start learning free
+                </a>
+                <a href="index.html#science" class="btn btn-ghost">Why it works</a>
             </div>
-            <div class="hstat">
-                <div class="num">€5</div>
-                <div class="lab">Per month after</div>
-            </div>
-            <div class="hstat">
-                <div class="num">22</div>
-                <div class="lab">Exercise types</div>
-            </div>
-        </div>
-        <div class="hero-btns">
-            <a href="https://t.me/wordivobot" class="btn btn-g">
-                <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
-                Start learning free
-            </a>
-            <a href="index.html#science" class="btn btn-o">
-                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-                Why it works
-            </a>
-        </div>
-    </div>
-    <div class="hero-phone">
-        <div class="fbadge fbadge-1">
-            <div class="fb-icon">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <div>
-                <div class="fb-l">Streak</div>
-                <div class="fb-v">6 days 🔥</div>
+            <div class="hero-stats">
+                <div><div class="num"><em>25</em></div><div class="lab">Free words, no card</div></div>
+                <div><div class="num">€5</div><div class="lab">Per month after</div></div>
+                <div><div class="num">22</div><div class="lab">Exercise types</div></div>
             </div>
         </div>
-        <div class="phone">
-            <div class="ph-top">
-                <span class="ph-back">‹</span>
-                <div class="ph-av">W</div>
-                <div class="ph-info">
-                    <div class="ph-nm">Wordivo</div>
-                    <div class="ph-st">bot · online</div>
+        <div class="hero-visual">
+            <div class="wcard wcard-a" aria-hidden="true">
+                <div class="wcard-k"><span>Streak</span><span>day 6</span></div>
+                <div class="wcard-w">6 days 🔥</div>
+                <div class="wcard-t">every day this week</div>
+                <div class="stages"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div>
+                <div class="wcard-m">Mon · Tue · Wed · Thu · Fri · Sat</div>
+            </div>
+            <div class="phone">
+                <div class="ph-top">
+                    <span class="ph-back">‹</span>
+                    <div class="ph-av">W</div>
+                    <div class="ph-info">
+                        <div class="ph-nm">Wordivo</div>
+                        <div class="ph-st">bot</div>
+                    </div>
                 </div>
+                <div class="ph-body" id="chat"></div>
             </div>
-            <div class="ph-body" id="chat"></div>
-        </div>
-        <div class="fbadge fbadge-2">
-            <div class="fb-icon orange">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-                <div class="fb-l">Languages</div>
-                <div class="fb-v orange">8</div>
+            <div class="wcard wcard-b" aria-hidden="true">
+                <div class="wcard-k"><span>Spanish · noun</span><span>9 / 10</span></div>
+                <div class="wcard-w">sobremesa</div>
+                <div class="wcard-t">the talk after a meal</div>
+                <div class="stages"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div>
+                <div class="wcard-m">next review · in 3 weeks</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- TELEGRAM CALLOUT -->
-<div class="tg-bar">
-    <div class="tg-bar-inner">
-        <div class="tg-icon-big">
-            <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+<!-- TELEGRAM STRIP -->
+<div class="tg-strip">
+    <div class="wrap">
+        <div class="tg-logo">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
         </div>
-        <div class="tg-content">
+        <div>
             <h3>Lives inside Telegram — the chat you already use</h3>
             <p>No new app to install. No accounts to create. Reviews come to you.</p>
         </div>
-        <div class="tg-pill">
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            Zero downloads
-        </div>
-        <div class="tg-pill">
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            Reviews come to you
-        </div>
-        <div class="tg-pill">
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            Any device
+        <div class="tg-checks">
+            <span><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Zero downloads</span>
+            <span><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Reviews come to you</span>
+            <span><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Any device</span>
         </div>
     </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section class="sec">
-    <div class="sec-ey gsap-fade">How it works</div>
-    <h2 class="sec-t gsap-fade">Add a word. We do the rest.</h2>
-    <p class="sec-s gsap-fade">No decks to build, no schedules to plan. Just save words and show up.</p>
-    <div class="steps">
-        <div class="scard gsap-up">
-            <div class="scard-num">01</div>
-            <div class="scard-icon">
-                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-            </div>
-            <h3>Add the words and phrases you pick up</h3>
-            <p>Type any word or phrase and its meaning. Save vocabulary from a lesson, a book, a show, a conversation — in any of the 8 languages we teach.</p>
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow gsap-fade">How it works</p>
+            <h2 class="sec-t gsap-fade">Add a word. <em class="mark">We do the rest.</em></h2>
+            <p class="sec-s gsap-fade">No decks to build, no schedules to plan. Just save words and show up.</p>
         </div>
-        <div class="scard gsap-up">
-            <div class="scard-num">02</div>
-            <div class="scard-icon">
-                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+        <div class="steps">
+            <div class="step gsap-up">
+                <div class="step-n">1</div>
+                <h3>Add the words and phrases you pick up</h3>
+                <p>Type any word or phrase and its meaning. Save vocabulary from a lesson, a book, a show, a conversation — in any of the 8 languages we teach.</p>
             </div>
-            <h3>We schedule each review</h3>
-            <p>Based on the forgetting curve, every word comes back at the perfect moment — just before you'd forget it.</p>
-        </div>
-        <div class="scard gsap-up">
-            <div class="scard-num">03</div>
-            <div class="scard-icon">
-                <svg class="icon icon-xl" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            <div class="step gsap-up">
+                <div class="step-n">2</div>
+                <h3>We schedule each review</h3>
+                <p>Based on the forgetting curve, every word comes back at the perfect moment — just before you'd forget it.</p>
             </div>
-            <h3>Watch it stick</h3>
-            <p>Follow your streak, mastery stages, and what's due next. Words go from "studied" to genuinely known.</p>
+            <div class="step gsap-up">
+                <div class="step-n">3</div>
+                <h3>Watch it stick</h3>
+                <p>Follow your streak, mastery stages, and what's due next. Words go from "studied" to genuinely known.</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- FEATURES -->
-<section class="sec">
-    <div class="sec-ey gsap-fade">Features</div>
-    <h2 class="sec-t gsap-fade">Everything you need<br>to make words stick</h2>
-    <p class="sec-s gsap-fade">Powerful memory science, wrapped in a chat you already know.</p>
-    <div class="fgrid">
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
-            <h3>Words and phrases, your way</h3>
-            <p>Any source, any of 8 languages. Your vocabulary, defined exactly how you understand it.</p>
+<section class="sec" style="padding-top:0">
+    <div class="wrap">
+        <div class="sec-head">
+            <p class="eyebrow gsap-fade">Features</p>
+            <h2 class="sec-t gsap-fade">Everything you need to make words <em class="mark">stick</em></h2>
+            <p class="sec-s gsap-fade">Powerful memory science, wrapped in a chat you already know.</p>
         </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/></svg></div>
-            <h3>10 stages of mastery</h3>
-            <p>Every word travels from first recognition to confident recall — one review at a time.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
-            <h3>22 exercise types</h3>
-            <p>Quizzes, scrambles, recall, cloze, and more. Variety keeps practice fresh and your brain working.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></div>
-            <h3>Listening, not just reading</h3>
-            <p>Hear every word spoken — and three exercise types where the answer only exists in the audio: catch the word, catch it inside a sentence, write down what you heard.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-            <h3>Streaks & progress</h3>
-            <p>See what's due, your daily streak, and how many words you've truly mastered.</p>
-        </div>
-        <div class="fcard gsap-up">
-            <div class="fcard-icon"><svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="14" height="10" rx="1"/><rect x="14" y="8" width="8" height="13" rx="1"/><line x1="6" y1="17" x2="10" y2="17"/></svg></div>
-            <h3>Works on every device</h3>
-            <p>Phone, tablet, laptop — anywhere Telegram runs. No installs, no logins.</p>
+        <div class="ledger">
+            <div class="gsap-up"><b>01</b><div><h3>Words and phrases, your way</h3><p>Any source, any of 8 languages. Your vocabulary, defined exactly how you understand it.</p></div></div>
+            <div class="gsap-up"><b>02</b><div><h3>10 stages of mastery</h3><p>Every word travels from first recognition to confident recall — one review at a time.</p></div></div>
+            <div class="gsap-up"><b>03</b><div><h3>22 exercise types</h3><p>Quizzes, scrambles, recall, cloze, and more. Variety keeps practice fresh and your brain working.</p></div></div>
+            <div class="gsap-up"><b>04</b><div><h3>Listening, not just reading</h3><p>Hear every word spoken — and three exercise types where the answer only exists in the audio: catch the word, catch it inside a sentence, write down what you heard.</p></div></div>
+            <div class="gsap-up"><b>05</b><div><h3>Streaks &amp; progress</h3><p>See what's due, your daily streak, and how many words you've truly mastered.</p></div></div>
+            <div class="gsap-up"><b>06</b><div><h3>Works on every device</h3><p>Phone, tablet, laptop — anywhere Telegram runs. No installs, no logins.</p></div></div>
         </div>
     </div>
 </section>
 
 <!-- PRICING -->
 <section class="sec" id="pricing">
-    <div class="sec-ey gsap-fade" style="justify-content:center">Pricing</div>
-    <h2 class="sec-t gsap-fade" style="text-align:center">One plan. Everything in.</h2>
-    <p class="sec-s gsap-fade" style="text-align:center;margin-left:auto;margin-right:auto">Free to start — your first 25 words are on us.</p>
-    <div class="gsap-up" style="max-width:460px;margin:0 auto">
-        <div class="pcard featured">
-            <div class="trial-note">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                First 25 words free — no card to start
-            </div>
-            <div class="pc-label">Solo learner</div>
-            <div class="pm"><span class="c">€5</span> <span class="pe">/ month</span></div>
-            <p class="pm-alt">or €50 / year — same rate, auto-renewing · €25 / 6 months, prepaid one-off</p>
-            <p class="pn">Everything you need to learn vocabulary that lasts.</p>
-            <ul class="pl">
-                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unlimited words and phrases, 8 languages</li>
-                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 22 adaptive exercise types</li>
-                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Scientific spaced repetition</li>
-                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Pronunciation audio</li>
-                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Streaks & progress tracking</li>
-                <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Works on any device with Telegram</li>
-            </ul>
-            <a href="https://t.me/wordivobot" class="btn btn-g" style="width:100%;justify-content:center">
-                Start learning free
-                <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
+    <div class="wrap">
+        <div class="sec-head center">
+            <p class="eyebrow center gsap-fade">Pricing</p>
+            <h2 class="sec-t gsap-fade">One plan. <em class="mark">Everything in.</em></h2>
+            <p class="sec-s gsap-fade">Free to start — your first 25 words are on us.</p>
         </div>
+        <div class="plans one gsap-up">
+            <div class="plan plan-ink">
+                <div class="free-note">
+                    <svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    First 25 words free — no card to start
+                </div>
+                <div class="plan-k">Solo learner</div>
+                <div class="price">€5 <small>/ month</small></div>
+                <p class="plan-alt">or €50 / year — same rate, auto-renewing · €25 / 6 months, prepaid one-off</p>
+                <p class="plan-p">Everything you need to learn vocabulary that lasts.</p>
+                <ul>
+                    <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Unlimited words and phrases, 8 languages</li>
+                    <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 22 adaptive exercise types</li>
+                    <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Scientific spaced repetition</li>
+                    <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Pronunciation audio</li>
+                    <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Streaks &amp; progress tracking</li>
+                    <li><svg class="icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Works on any device with Telegram</li>
+                </ul>
+                <a href="https://t.me/wordivobot" class="btn btn-paper btn-wide">Start learning free <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+        </div>
+        <p class="price-foot">Learning with a tutor? Your teacher can set up your group and price. <a href="teachers.html">For teachers →</a></p>
+        <p class="price-foot">Prices in EUR. Pay in EUR or UAH at checkout — the price you see is the price you pay.</p>
     </div>
-    <p class="price-foot">Learning with a tutor? Your teacher can set up your group and price. <a href="teachers.html">For teachers →</a></p>
-    <p class="price-foot">Prices in EUR. Pay in EUR or UAH at checkout — the price you see is the price you pay.</p>
 </section>
 
-<!-- CTA -->
-<section class="cta-sec">
-    <h2 class="gsap-fade">Start remembering, <em>today</em></h2>
-    <p class="gsap-fade">Open Wordivo in Telegram and add your first word in under a minute.</p>
-    <div class="cta-btns gsap-fade">
-        <a href="https://t.me/wordivobot" class="btn btn-g">
-            <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
-            Start learning free
-        </a>
-        <a href="mailto:hello@wordivo.co" class="btn btn-o">
-            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-            Get in touch
-        </a>
+<!-- CLOSE -->
+<section class="close">
+    <div class="wrap">
+        <h2 class="gsap-fade">Start remembering, <em class="mark">today</em></h2>
+        <p class="gsap-fade">Open Wordivo in Telegram and add your first word in under a minute.</p>
+        <div class="close-btns gsap-fade">
+            <a href="https://t.me/wordivobot" class="btn btn-paper">
+                <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+                Start learning free
+            </a>
+            <a href="mailto:hello@wordivo.co" class="btn btn-ghost">Get in touch</a>
+        </div>
     </div>
 </section>
 
@@ -273,19 +232,19 @@
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
 gsap.utils.toArray('.gsap-fade').forEach(el=>{
-    gsap.from(el,{opacity:0, y:30, duration:1, ease:'power3.out',
-        scrollTrigger:{trigger:el, start:'top 88%', toggleActions:'play none none none'}});
+    gsap.from(el,{opacity:0, y:24, duration:.9, ease:'power3.out',
+        scrollTrigger:{trigger:el, start:'top 90%', toggleActions:'play none none none'}});
 });
 gsap.utils.toArray('.gsap-up').forEach((el,i)=>{
-    gsap.from(el,{opacity:0, y:50, duration:0.9, delay:(i%3)*0.15, ease:'power3.out',
-        scrollTrigger:{trigger:el, start:'top 88%', toggleActions:'play none none none'}});
+    gsap.from(el,{opacity:0, y:36, duration:.9, delay:(i%3)*0.12, ease:'power3.out',
+        scrollTrigger:{trigger:el, start:'top 90%', toggleActions:'play none none none'}});
 });
-ScrollTrigger.create({
-    start:'top -80',
-    onEnter:()=>document.querySelector('nav').style.background='rgba(251,249,245,0.95)',
-    onLeaveBack:()=>document.querySelector('nav').style.background='rgba(251,249,245,0.85)'
-});
+}
+const navEl = document.querySelector('nav');
+const stick = ()=>navEl.classList.toggle('stuck', window.scrollY > 24);
+window.addEventListener('scroll', stick, {passive:true}); stick();
 
 // CHAT — solo learner flow
 const msgs = [
