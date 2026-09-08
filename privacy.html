@@ -75,7 +75,7 @@
         <li><strong>LiqPay (PrivatBank)</strong> — payment processing. Wordivo is the seller of record and is responsible for the underlying sale, not LiqPay.</li>
         <li><strong>Microsoft</strong> — text-to-speech. To pronounce a word or read a sentence aloud, the text is sent to Microsoft's speech service. That text is your own vocabulary, so please don't save anything private as a "word". Audio is cached so the same text is sent once, not on every review.</li>
         <li><strong>Hosting/infrastructure:</strong> Railway (application), Neon (database) and Vercel (this website).</li>
-        <li>Teacher payouts are transferred manually by us to the bank/payment details the teacher provides in-app; we don't route payouts through a fixed third-party payout provider.</li>
+        <li>Teacher payouts are transferred manually by us to the bank/payment details the teacher provides in-app; we don't route payouts through a fixed third-party payout provider. Those details are <strong>encrypted before they are stored</strong>, with the key held outside the database; a teacher sees only a masked version of their own entry on screen.</li>
     </ul>
     <p>We do not sell your personal data.</p>
     <p>This website loads no third-party fonts, scripts, analytics or cookies — everything it needs is served from our own domain, so visiting it does not tell anyone else that you did.</p>
